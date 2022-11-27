@@ -10,7 +10,7 @@ height = 550
 class Ghost(pygame.sprite.Sprite):
     def __init__(self, x, y, change_x, change_y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load('ghost.png')
+        img = pygame.image.load('Images/ghost.png')
         self.image = pygame.transform.scale(img, (32, 32))
         self.x = x
         self.y = y

@@ -14,7 +14,7 @@ pygame.init()
 win = pygame.display.set_mode((800, 576))
 pygame.display.set_caption("Client")
 
-image = pygame.image.load("player.png")
+image = pygame.image.load("Images/player.png")
 
 
 game_over = False
