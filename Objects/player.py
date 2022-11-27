@@ -1,7 +1,7 @@
 import pygame
-from maps import world
+from Screens.maps import world
 from pygame.locals import Rect
-from ghost import ghost
+from Objects.ghost import ghost
 BLACK = (0, 0, 0)
 
 # pygame.init()

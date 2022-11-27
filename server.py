@@ -1,6 +1,6 @@
 import socket
 from _thread import start_new_thread
-from player import Player
+from Objects.player import Player
 import pickle
 import pygame
 import time

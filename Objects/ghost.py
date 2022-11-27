@@ -1,6 +1,6 @@
 import pygame
 import random
-from maps import world
+from Screens.maps import world
 
 
 width = 800

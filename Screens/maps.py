@@ -1,5 +1,5 @@
 import pygame
-from coin import Coin
+from Objects.coin import Coin
 
 
 tile_size = 32
