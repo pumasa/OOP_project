@@ -2,8 +2,8 @@ import socket
 from _thread import start_new_thread
 from Objects.player import Player
 import pickle
-import pygame
-import time
+# import pygame
+# import time
 
 server = "localhost"
 port = 8000

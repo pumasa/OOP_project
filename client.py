@@ -1,11 +1,13 @@
 import pygame
 from network import Network
 from Screens.maps import world
-# from pygame.locals import *
+
 from Objects.ghost import ghost
+
 
 width = 800
 height = 576
+
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -13,9 +15,8 @@ WHITE = (255, 255, 255)
 pygame.init()
 win = pygame.display.set_mode((800, 576))
 pygame.display.set_caption("Client")
-
+font = pygame.font.SysFont('Bauhaus 93', 30)
 image = pygame.image.load("Images/player.png")
-
 
 game_over = False
 
@@ -26,6 +27,7 @@ def redrawWindow(win, player, player2):
     win.blit(image, player2)
     world.draw()
     win.blit(ghost.image, ghost.rect)
+
     pygame.display.update()
 
 
@@ -35,8 +37,8 @@ def main():
     p = n.getP()
     print(p)
     clock = pygame.time.Clock()
-
     while run:
+
         p2 = n.send(p)
         clock.tick(60)
         ghost.update()

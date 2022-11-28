@@ -4,14 +4,8 @@ from pygame.locals import Rect
 from Objects.ghost import ghost
 BLACK = (0, 0, 0)
 
-# pygame.init()
-# win = pygame.display.set_mode((800, 550))
-score = 0
-
 
 class Player(pygame.sprite.Sprite):
-    explosion = False
-    game_over = False
 
     def __init__(self, x, y, width, height):
         pygame.sprite.Sprite.__init__(self)
@@ -21,6 +15,10 @@ class Player(pygame.sprite.Sprite):
         self.height = height
         self.rect = Rect(x, y, width, height)
         self.prevdir = 5
+        self.score = 0
+        self.explosion = False
+        self.game_over = False
+        print(self.game_over)
 
     def move(self):
         dx = 0
@@ -64,16 +62,16 @@ class Player(pygame.sprite.Sprite):
         # coin collision
         for coin in world.coin_list:
             if coin[1].colliderect(self.x, self.y, self.width, self.height):
-                global score
-                score += 10
+                # global score
+                self.score += 10
                 world.coin_list.remove(coin)
-                print(score)
+
+            if len(world.coin_list) == 0:
+                print("All coins collected")  # switch to next level
 
         # ghost collision
         if ghost.rect.colliderect(self.x, self.y, self.width, self.height):
-            self.explosion = True
             self.game_over = True
-            print("GameOver")
 
         # update player coordinates
         self.x += dx
