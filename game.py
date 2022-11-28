@@ -1,9 +1,11 @@
 import pygame
 from Screens.menu import Menu
-from Screens.maps import world
-from Objects.ghost import ghost
+from Screens.maps import World
+from Objects.ghost import Ghost
 from Objects.player import Player
 from client import main
+from Screens.map_list import enviroment
+
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -12,16 +14,18 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 screen = pygame.display.set_mode((800, 576))
 image = pygame.image.load("Images/player.png")
-p1 = Player(32, 32, 29, 29)
 
 
-class Game(object):
+class Game():
     def __init__(self):
         self.font = pygame.font.Font(None, 40)
         self.about = False
         self.game_over = True
         self.multiplayer = False
-        self.game_over_screen = p1.game_over
+        self.player = Player(32, 32, 29, 29)
+        self.ghost = Ghost(96, 128, -2, 0)
+        self.world = World(enviroment())
+        self.game_over_screen = self.player.game_over
         # Create the font for displaying the score on the screen
         self.font = pygame.font.Font(None, 35)
         # Create the menu of the game
@@ -61,12 +65,27 @@ class Game(object):
                     self.game_over = True
                     self.about = False
         return False
+#####################################################################################################
 
     def run_logic(self):
         if not self.game_over:
-            self.game_over_screen = p1.game_over
+            self.game_over_screen = self.player.game_over
             if self.game_over_screen:
                 self.game_over = True
+
+        # coin collision
+        for coin in self.world.coin_list:
+            if coin[1].colliderect(self.player.x, self.player.y, self.player.width, self.player.height):
+                self.player.score += 10
+                self.world.coin_list.remove(coin)
+
+            if len(self.world.coin_list) == 0:
+                print("All coins collected")  # switch to next level
+
+        # ghost collision
+        if self.ghost.rect.colliderect(self.player.x, self.player.y, self.player.width, self.player.height):
+            self.game_over = True
+#####################################################################################################
 
     def display_frame(self, screen):
         # First, clear the screen to white. Don't put other drawing commands
@@ -75,7 +94,8 @@ class Game(object):
 
         if self.game_over:
             if self.game_over_screen:
-                self.display_message_score(screen, "Your Score: " + str(p1.score))
+                self.display_message_score(screen, "Your Score: " + str(self.player.score))
+
             if self.about:
                 self.display_message(screen, "It is an arcade Game")
             else:
@@ -91,12 +111,12 @@ class Game(object):
         #     self.multi(screen)
 
         else:
-            screen.blit(image, p1)
-            world.draw()
-            screen.blit(ghost.image, ghost.rect)
-            ghost.update()
-            p1.move()
-            text = self.font.render("Score: " + str(p1.score), True, GREEN)
+            screen.blit(image, self.player)
+            self.world.draw()
+            screen.blit(self.ghost.image, self.ghost.rect)
+            self.ghost.update()
+            self.player.move()
+            text = self.font.render("Score: " + str(self.player.score), True, GREEN)
             screen.blit(text, [10, 5])
 
         # --- Go ahead and update the screen with what we've drawn.

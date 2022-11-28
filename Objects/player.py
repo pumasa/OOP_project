@@ -1,7 +1,7 @@
 import pygame
 from Screens.maps import world
 from pygame.locals import Rect
-from Objects.ghost import ghost
+
 BLACK = (0, 0, 0)
 
 
@@ -58,20 +58,6 @@ class Player(pygame.sprite.Sprite):
                 dx = 0
             elif tile[1].colliderect(self.x, self.y + dy, self.width, self.height):
                 dy = 0
-
-        # coin collision
-        for coin in world.coin_list:
-            if coin[1].colliderect(self.x, self.y, self.width, self.height):
-                # global score
-                self.score += 10
-                world.coin_list.remove(coin)
-
-            if len(world.coin_list) == 0:
-                print("All coins collected")  # switch to next level
-
-        # ghost collision
-        if ghost.rect.colliderect(self.x, self.y, self.width, self.height):
-            self.game_over = True
 
         # update player coordinates
         self.x += dx

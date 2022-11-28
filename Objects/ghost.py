@@ -70,6 +70,3 @@ class Ghost(pygame.sprite.Sprite):
             elif y == "down":
                 self.change_x = 0
                 self.change_y = 2
-
-
-ghost = Ghost(96, 128, -2, 0)
