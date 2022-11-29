@@ -1,13 +1,16 @@
 from flask import Flask, render_template
-
+import json
 
 app = Flask(__name__)
 
-@app.route('/')
+
+@app.route("/")
 def index():
-    return render_template('index.html')
+    with open("scores.json") as json_data:
+        data = json.load(json_data)
+
+    return render_template("index.html", data=data)
 
 
-
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
