@@ -1,14 +1,13 @@
 import pygame
-from Screens.maps import world
 from pygame.locals import Rect
-
-BLACK = (0, 0, 0)
+from Objects import Animation
 
 
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y, width, height):
         pygame.sprite.Sprite.__init__(self)
+        self.img = pygame.image.load("Images/player.png").convert()
         self.x = x
         self.y = y
         self.width = width
@@ -16,48 +15,89 @@ class Player(pygame.sprite.Sprite):
         self.rect = Rect(x, y, width, height)
         self.prevdir = 5
         self.score = 0
-        self.explosion = False
         self.game_over = False
-        print(self.game_over)
+        self.collision = False
+        img = pygame.image.load("Images/walk.png").convert()
+        self.right_anim = Animation(img, 32, 32)
+        self.left_anim = Animation(pygame.transform.flip(img, True, False), 32, 32)
+        self.up_anim = Animation(pygame.transform.rotate(img, 90), 32, 32)
+        self.down_anim = Animation(pygame.transform.rotate(img, 270), 32, 32)
 
-    def move(self):
+    def move(self, controls):
+        keys = pygame.key.get_pressed()
         dx = 0
         dy = 0
-        keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_LEFT]:
+        if keys[controls[0]]:
             dx -= 3
             self.prevdir = 0
 
-        elif keys[pygame.K_RIGHT]:
+        elif keys[controls[1]]:
             dx += 3
             self.prevdir = 1
 
-        elif keys[pygame.K_UP]:
+        elif keys[controls[2]]:
             dy -= 3
             self.prevdir = 2
 
-        elif keys[pygame.K_DOWN]:
+        elif keys[controls[3]]:
             dy += 3
             self.prevdir = 3
         else:
             if self.prevdir == 5:
                 dx = 0
             elif self.prevdir == 0:
+                self.left_anim.update(10)
+                self.img = self.left_anim.get_current_image()
                 dx -= 3
             elif self.prevdir == 1:
+                self.right_anim.update(10)
+                self.img = self.right_anim.get_current_image()
                 dx += 3
             elif self.prevdir == 2:
+                self.up_anim.update(10)
+                self.img = self.up_anim.get_current_image()
                 dy -= 3
             elif self.prevdir == 3:
+                self.down_anim.update(10)
+                self.img = self.down_anim.get_current_image()
                 dy += 3
 
         # wall collision
-        for tile in world.tile_list:
+        for tile in self.world.tile_list:
             if tile[1].colliderect(self.x + dx, self.y, self.width, self.height):
                 dx = 0
             elif tile[1].colliderect(self.x, self.y + dy, self.width, self.height):
                 dy = 0
+
+        # player collision
+        if self.collision:
+            if dx == 3:
+                dx = -4
+                self.prevdir = 0
+                self.collision = False
+            if dx == -3:
+                dx = 4
+                self.prevdir = 1
+                self.collision = False
+            if dy == 3:
+                dy = -4
+                self.prevdir = 2
+                self.collision = False
+            if dy == -3:
+                dy = 4
+                self.prevdir = 3
+                self.collision = False
+
+        # off screen
+        if self.x < 0:
+            self.x = 800
+        elif self.x > 800:
+            self.x = 0
+        if self.y < 0:
+            self.y = 576
+        elif self.y > 576:
+            self.y = 0
 
         # update player coordinates
         self.x += dx

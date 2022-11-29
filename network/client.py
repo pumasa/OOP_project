@@ -1,5 +1,5 @@
 import pygame
-from network import Network
+from network.network import Network
 from Screens.maps import world
 
 # from Objects.ghost import ghost
