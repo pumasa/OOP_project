@@ -146,9 +146,11 @@ class Game():
             # coin collision
             for coin in self.world.coin_list:
                 if coin[1].colliderect(Rect(self.player.rect)):
+                    self.pacman_sound.play()
                     self.player.score += 10
                     self.world.coin_list.remove(coin)
                 if coin[1].colliderect(Rect(self.player2.rect)):
+                    self.pacman_sound.play()
                     self.player2.score += 10
                     self.world.coin_list.remove(coin)
                 if len(self.world.coin_list) == 0:
@@ -172,14 +174,17 @@ class Game():
         if self.game_over:
             if self.singleplayer:
                 if self.saved is False:
+                    self.game_over_sound
                     self.save()
                     self.saved = True
                 self.display_message_score(screen, "Your Score: " + str(self.player.score), GREEN, 80)
             if self.multiplayer:
                 if self.saved is False:
                     if self.p1_dead:
+                        self.game_over_sound
                         self.player2.score += 1000
                     elif self.p2_dead:
+                        self.game_over_sound
                         self.player.score += 1000
                     self.save()
                     self.saved = True
