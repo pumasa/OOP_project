@@ -2,6 +2,13 @@ import random
 
 
 def enviroment():
+    """This function returns the enviroment of the game.
+
+    3 = intersection
+    2 = coin
+    1 = wall
+    0 = empty
+    """
 
     map1 = (
         (1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1),
@@ -45,4 +52,3 @@ def enviroment():
         )
 
     return random.choice((map1, map2))
-

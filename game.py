@@ -42,7 +42,8 @@ class Game():
         self.world = World(enviroment())
         self.player = Player(32, 32, 29, 29)
         self.player.world = self.world
-        self.ghost1 = Ghost(544, 288, -2, 0)
+        self.ghosts = pygame.sprite.Group()
+        self.ghosts.add = Ghost(544, 288, -2, 0)
         self.ghost1.world = self.world
         self.ghost2 = Ghost(576, 288, 2, 0)
         self.ghost2.world = self.world
@@ -116,7 +117,7 @@ class Game():
 
 #############################################################################################################
     def run_logic(self):
-        """ Run the logic of the game 
+        """ Run the logic of the game
         """
 
         # Single Player
@@ -181,7 +182,7 @@ class Game():
 
 #############################################################################################################
     def display_frame(self, screen):
-        """ Display everything to the screen for the game. 
+        """ Display everything to the screen for the game.
         """
 
         screen.fill(BLACK)
@@ -250,7 +251,7 @@ class Game():
 
 #############################################################################################################
     def display_message_score(self, screen, message, color, y):
-        """ Display a message on the screen 
+        """ Display a message on the screen
 
         Args:
             screen: the screen to display the message on

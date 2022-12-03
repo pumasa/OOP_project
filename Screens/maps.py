@@ -1,6 +1,5 @@
 import pygame
 from Objects import Coin
-# from Screens import enviroment
 
 
 win = pygame.display.set_mode((800, 576))
@@ -21,6 +20,7 @@ class World():
         self.tile_list = []
         self.coin_list = []
         self.intersections = []
+        self.coins = pygame.sprite.Group()
         wall_img = pygame.image.load('Images/blue.png')
 
         row_count = 0
@@ -37,8 +37,8 @@ class World():
                     self.tile_list.append(tile)
 
                 if tile == 2:
+                    self.coins.add(Coin(col_count * 32 + (32 // 2), row_count*32 + (32 // 2)))
                     coin = Coin(col_count * 32 + (32 // 2), row_count*32 + (32 // 2))
-                    # coin_group.add(coin)
                     coin_data = (coin.image, coin.rect)
                     self.coin_list.append(coin_data)
 
@@ -61,6 +61,3 @@ class World():
 
         for coin in self.coin_list:
             win.blit(coin[0], coin[1])
-
-
-# world = World(enviroment())
