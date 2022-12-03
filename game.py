@@ -94,7 +94,6 @@ class Game():
                             self.menu = Menu(("Single Player", "Restart", "Exit"), font_color=WHITE, font_size=60)
                             self.player2 = Player(736, 448, 29, 29)
                             self.player2.world = self.world
-                            # self.player2 = Player(64, 32, 29, 29)
 
                         elif self.menu.state == 3:
                             # --- Name Enter ------
