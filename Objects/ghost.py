@@ -3,7 +3,20 @@ import random
 
 
 class Ghost(pygame.sprite.Sprite):
+    """ This class is used to create a ghost object to be used in a game.
+    """
+
+#############################################################################################################
     def __init__(self, x, y, change_x, change_y):
+        """ Creates a ghost object with the given parameters.
+
+        Args:
+            x (int): x coordinate of the top left corner of the ghost
+            y (int): y coordinate of the top left corner of the ghost
+            change_x (int): change in x coordinate of the ghost
+            change_y (int): change in y coordinate of the ghost
+        """
+
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load('Images/ghost.png')
         self.image = pygame.transform.scale(img, (32, 32))
@@ -16,7 +29,11 @@ class Ghost(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
         self.speed = 2
 
+#############################################################################################################
     def update(self):
+        """ Updates the ghost's position and direction.
+        """
+
         self.rect.x += self.change_x
         self.rect.y += self.change_y
         if self.rect.right < 0:
@@ -49,7 +66,14 @@ class Ghost(pygame.sprite.Sprite):
                 self.change_x = 0
                 self.change_y = -self.speed
 
+#############################################################################################################
     def change_direction(self, direction):
+        """ Changes the direction of the ghost. The ghost will change direction randomly.
+
+        Args:
+            direction (str): The direction the ghost will change to.
+        """
+
         if direction == "x":
             x = random.choice(("left", "right"))
             if x == "left":

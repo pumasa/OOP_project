@@ -4,8 +4,20 @@ from Objects import Animation
 
 
 class Player(pygame.sprite.Sprite):
+    """ This class is used to create a player object to be used in a game.
+    """
 
+#############################################################################################################
     def __init__(self, x, y, width, height):
+        """ Creates a Player object with the given parameters.
+
+        Args:
+            x (int): x coordinate of the top left corner of the player
+            y (int): y coordinate of the top left corner of the player
+            width (int): width of the player
+            height (int): height of the player
+        """
+
         pygame.sprite.Sprite.__init__(self)
         self.img = pygame.image.load("Images/player.png").convert()
         self.x = x
@@ -23,7 +35,14 @@ class Player(pygame.sprite.Sprite):
         self.up_anim = Animation(pygame.transform.rotate(img, 90), 32, 32)
         self.down_anim = Animation(pygame.transform.rotate(img, 270), 32, 32)
 
+#############################################################################################################
     def move(self, controls):
+        """ Moves the player in the direction specified by the controls.
+
+        Args:
+            controls (dict): dictionary containing the controls for the game
+        """
+
         keys = pygame.key.get_pressed()
         dx = 0
         dy = 0
@@ -105,5 +124,9 @@ class Player(pygame.sprite.Sprite):
 
         self.update()
 
+#############################################################################################################
     def update(self):
+        """ Updates the player's position and image.
+        """
+
         self.rect = (self.x, self.y, self.width, self.height)

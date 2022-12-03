@@ -1,15 +1,15 @@
 import pygame
 from game import Game
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 576
-
 
 def main():
+    """ Main function of the program.
+    """
+
     # Initialize all imported pygame modules
     pygame.init()
     # Set the width and height of the screen [width, height]
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((800, 576))
     # Set the current window caption
     pygame.display.set_caption("Battle Royale - PacMan")
     # Loop until the user clicks the close button.

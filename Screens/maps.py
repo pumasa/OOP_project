@@ -7,7 +7,16 @@ win = pygame.display.set_mode((800, 576))
 
 
 class World():
+    """This class is used to create a world object that can be used in Pygame.
+    """
+
+#############################################################################################################
     def __init__(self, data):
+        """Initializes the world object.
+
+        Args:
+            data (list): A list of lists that contain information about the world.
+        """
 
         self.tile_list = []
         self.coin_list = []
@@ -42,7 +51,11 @@ class World():
                 col_count += 1
             row_count += 1
 
+#############################################################################################################
     def draw(self):
+        """Draws the world object.
+        """
+
         for tile in self.tile_list:
             win.blit(tile[0], tile[1])
 

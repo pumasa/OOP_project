@@ -21,7 +21,14 @@ PLAYER2_CONTROLS = [pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s]
 
 
 class Game():
+    """This class is used to create a game object that can be used in Pygame.
+    """
+
+#############################################################################################################
     def __init__(self):
+        """ Initialize the game
+        """
+
         self.font = pygame.font.Font('freesansbold.ttf', 40)
         self.names = False
         self.game_over = True
@@ -53,9 +60,12 @@ class Game():
         self.font = pygame.font.Font(None, 35)
         # Create the menu of the game
         self.menu = Menu(("Single Player", "Multi Player", "Exit"), font_color=WHITE, font_size=60)
-########################################################################################################
 
+#############################################################################################################
     def process_events(self):
+        """ Process the events of the game
+        """
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
@@ -103,9 +113,12 @@ class Game():
         screen.fill((0, 0, 0))
         self.display_message_score(screen, "Enter your username:", WHITE, 250)
         pygame.display.flip()
-########################################################################################################
 
+#############################################################################################################
     def run_logic(self):
+        """ Run the logic of the game 
+        """
+
         # Single Player
         if self.singleplayer:
             if not self.game_over:
@@ -166,9 +179,11 @@ class Game():
                     self.game_over = True
                     self.p2_dead = True
 
-########################################################################################################
-
+#############################################################################################################
     def display_frame(self, screen):
+        """ Display everything to the screen for the game. 
+        """
+
         screen.fill(BLACK)
         # --- Drawing code should go here
         if self.game_over:
@@ -233,7 +248,17 @@ class Game():
         # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
 
+#############################################################################################################
     def display_message_score(self, screen, message, color, y):
+        """ Display a message on the screen 
+
+        Args:
+            screen: the screen to display the message on
+            message: the message to display
+            color: the color of the message
+            y: the y position of the message
+        """
+
         label = self.font.render(message, True, color)
         # Get the width and height of the label
         width = label.get_width()
@@ -243,7 +268,13 @@ class Game():
         # Draw the label onto the screen
         screen.blit(label, (posX, posY))
 
+#############################################################################################################
     def define_username(self, num):
+        """Defines the username
+
+        Args:
+            num (int): Player number
+        """
         username = ""
         typing = True
         while typing:
@@ -265,7 +296,11 @@ class Game():
                 screen.blit(text, (350, 300))
                 pygame.display.update()
 
+#############################################################################################################
     def save(self):
+        """Save the highscore to a file
+        """
+
         if self.singleplayer:
             with open("scores.json", "r") as f:
                 scores = json.load(f)
